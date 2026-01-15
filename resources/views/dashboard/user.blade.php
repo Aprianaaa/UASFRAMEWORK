@@ -93,7 +93,7 @@
                 <h5 class="fw-bold"> Aman & Terpercaya</h5>
                 <p class="text-muted">
                     Sistem pemesanan dan pembayaran yang aman
-                    untuk kenyamanan pelanggan.
+                    untuk kenyamanan pelanggan
                 </p>
             </div>
         </div>
