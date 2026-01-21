@@ -61,7 +61,7 @@ class CheckoutController extends Controller
             ]);
         }
 
-        // KOSONGKAN CART
+
         Cart::where('session_id', session()->getId())->delete();
 
 return redirect('/menu')
