@@ -44,22 +44,39 @@ class AuthController extends Controller
     }
 
     // proses login
-    public function login(Request $request)
-    {
-        $login = filter_var($request->login, FILTER_VALIDATE_EMAIL)
-            ? 'email'
-            : 'username';
+public function login(Request $request)
+{
+    $request->validate([
+        'login' => 'required',
+        'password' => 'required'
+    ]);
 
-        if(Auth::attempt([$login => $request->login, 'password'=>$request->password])){
-            $role = Auth::user()->role;
+    $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL)
+        ? 'email'
+        : 'username';
 
-            if($role == 'admin') return redirect('/admin/dashboard');
-            return redirect('/user');
-        }
-
-        return back()->with('error','Username / Email atau Password salah!');
-
+    if (!Auth::attempt([
+        $loginType => $request->login,
+        'password' => $request->password
+    ])) {
+        return back()->with('error', 'Username / Email atau Password salah!');
     }
+
+    $user = Auth::user();
+
+    if ($user->role === 'admin') {
+        return redirect('/admin/dashboard');
+    }
+
+    if ($user->role === 'user') {
+        return redirect('/user');
+    }
+
+    // fallback safety
+    Auth::logout();
+    return back()->with('error', 'Role tidak dikenali');
+}
+
 
     // logout
     public function logout()

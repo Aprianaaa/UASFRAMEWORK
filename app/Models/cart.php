@@ -22,8 +22,8 @@ class Cart extends Model
     {
         return $this->belongsTo(
             Product::class,
-            'product_id',   // FK di carts
-            'product_id'    // PK di products
+            'product_id',   
+            'product_id'    
         );
     }
 }

@@ -62,8 +62,7 @@ public function remove($id)
                 : 'required|image|max:2048',
         ]);
 
-        // 👉 di sini nanti simpan order (opsional)
-        // sekarang fokus cart dulu
+
 
         // kosongin cart setelah checkout
         Cart::where('session_id', Session::getId())->delete();
